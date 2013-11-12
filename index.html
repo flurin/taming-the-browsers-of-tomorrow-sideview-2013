@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Taming the browsers of tomorrow - Side View 2013</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="Flurin Egger">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="vendor/revealjs/css/reveal.min.css">
+    <link rel="stylesheet" href="stylesheets/theme.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="vendor/revealjs/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="vendor/revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="vendor/revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
+      
+      <script src="vendor/smoothiecharts/smoothiecharts.js"></script>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background="images/backgrounds/title.png">
+          <img src="images/elephant.png" class="seamless">
+          <h1>Taming the browsers of tomorrow</h1>
+          <p>Side View 2013, november 9th, 2013</p>
+        </section>
+        
+        <section data-background="images/backgrounds/flurin.jpg">
+          <h1>Hi, I am Flurin</h1>
+          <p>@flurin</p>
+        </section>
+        
+
+        <section>
+          <h1>Big<br> things are happening</h1>
+          <p> with browsers</p>
+        </section>
+        
+        <section>
+          <h1>They're smarter</h1>
+        </section>
+
+        <section data-state="slide-more-aware" data-background="images/backgrounds/aware.png">
+          <h1 class="fragment">More aware</h1>
+        </section>
+
+        <section data-state="slide-no-talk">
+          <div class="header">
+            <h1>No</h1>
+          </div>
+          <ul>
+            <li class="fragment"> Shadow DOM</li>
+            <li class="fragment"> WebGL</li>
+            <li class="fragment"> WebRTC</li>
+          </ul>
+        </section>
+                
+        <section>
+          <h1>Let's talk about 6 pieces of small magic</h1>
+        </section>
+        
+        <section data-background="images/small_magic.gif">
+        </section>
+        
+        
+        <section>
+          <section data-background="images/backgrounds/promises.jpg">
+            <h1>Promises</h1>
+            <p>Natively</p>
+          </section>
+        
+          <section>
+            <blockquote>
+              A promise represents the eventual result of an asynchronous operation.
+              <cite><a href="http://promises-aplus.github.io/promises-spec/">http://promises-aplus.github.io/promises-spec/</a></cite>
+            </blockquote>
+          </section>
+          
+          <section>
+            <h1>An everyday scenario</h1>
+            <ol>
+              <li>Fetch a list of news items</li>
+              <li>Pre-fetch and cache the first item's details</li>
+            </ol>
+          </section>
+        
+          <section>
+            <h1>The oldfashioned way</h1>
+            <pre><code data-trim>
+  getAjax("list.json", function(listResult){
+    if(listResult){
+      // Do stuff
+    } else {
+      // Handle failure
+    }
+  })
+            </code></pre>
+          </section>
+          
+          <section>
+            <h1>The oldfashioned way</h1>
+            <pre><code data-trim>
+  getAjax("list.json", function(listResult){
+    if(listResult){
+      getAjax("detail.json?id=" + listResult[0].id, function(detailResult){
+        if(detailResult){
+          cacheResult(detailResult)
+        } else {
+          // Handle failure
+        }
+      });
+    } else {
+      // Handle failure
+    }
+  })
+            </code></pre>
+          </section>  
+          
+          <section>
+            <img src="images/backgrounds/callback_hell.jpg" class="stretch" style="width: 100%">
+          </section>
+
+                  
+        
+          <section>
+            <h1>The Promises way</h1>
+            <pre><code data-trim>
+  getAjax("list.json").then(
+    function(result){
+      // Do stuff
+    },
+    function(fail){
+      // Handle failure
+    }
+  )
+            </code></pre>
+          </section>
+          
+          <section>
+            <h1>The Promises way</h1>
+            <pre><code data-trim>
+  getAjax("list.json").then(
+    function(result){
+      return getAjax("detail.json?id=" + result[0].id)
+    },
+    function(fail){
+      // Handle failure
+    }
+  ).then(
+    function(result){
+      cacheResult(result)
+    },
+    function(fail){
+      // Handle failure
+    }
+  );
+            </code></pre>
+          </section>    
+          
+          <section>
+            <h1>Promise.all()</h1>
+          
+            <pre><code data-trim>
+  function promiseToSleep(ms){
+    return new Promise(function(resolve, reject){
+      window.setTimeout(function(){
+        resolve(ms)
+      }, ms)
+    });
+  }
+  Promise.all([promiseToSleep(5000), promiseToSleep(2000)]).then(
+    function(promises){ 
+      console.log("All done", promises); 
+    }, 
+    function(promises){ 
+      console.log("Failed", promises); 
+    }
+  );
+
+            </code></pre>          
+          </section>      
+        
+          <section>
+            <h1>They have been around</h1>
+            <ul>
+              <li>Q</li>
+              <li>RSVP</li>
+              <li>jQuery.defered</li>
+            </ul>
+            
+            <p>
+              <a href="https://github.com/promises-aplus/promises-spec/blob/master/implementations.md">https://github.com/promises-aplus/promises-spec/blob/master/implementations.md
+            </a>
+          </section>
+          
+          <section>
+            <img src="images/midi-promises.png">
+          </section>
+
+        
+          <section>
+            <h1>Currently in</h1>
+            <ul>
+              <li>Firefox</li>
+              <li>Safari</li>              
+              <li>Chrome 32+</li>
+            </ul>
+            
+            <h1>Coming to</h1>
+            <ul>
+              <li>IE</li>
+            </ul>
+          </section>
+        </section>
+        
+        <section>
+          <section>
+            <h1>Ambient Light Events</h1>
+          </section>
+          
+          <section>
+            <blockquote>
+              When a device's light sensor detects a change in the light level, it notifies the browser by firing the <code>DeviceLightEvent</code>. Once the event is captured, the event object gives access to the light intensity expressed in lux.
+            </blockquote>
+          </section>
+          
+          <section>
+            
+            <h1>Demo!</h1>
+            
+            <canvas id="plot" width="800" height="300"></canvas>
+            <div>
+              <button id="devicelight_button">Start demo!</button>
+            </div>
+            <script type="text/javascript" charset="utf-8">
+            
+            !function(){
+              var button = document.getElementById("devicelight_button");
+              var interval;
+              var smoothie;
+              
+              var start = function(){
+                smoothie = new SmoothieChart();
+                smoothie.streamTo(document.getElementById("plot"));
+                var light = new TimeSeries();
+                smoothie.addTimeSeries(light);
+                var lux = 0;
+                
+                button.removeEventListener("click", start);
+                button.addEventListener("click", stop);
+                button.innerHTML = "Stop demo!";
+              
+                window.addEventListener("devicelight", function(event){
+                  lux = event.value;
+                  var html = document.getElementsByTagName('html')[0];
+                  if (event.value < 50) {
+                    html.classList.add('darklight');
+                    html.classList.remove('brightlight');
+                  } else {
+                    html.classList.add('brightlight');
+                    html.classList.remove('darklight');
+                  }                
+                });
+              
+                interval = setInterval(function(){
+                  light.append((new Date()).getTime(), lux)
+                }, 500)                
+              }
+              
+              var stop = function(){
+                clearInterval(interval);
+                smoothie.stop();
+                
+                button.addEventListener("click", start);
+                button.removeEventListener("click", stop);
+                button.innerHTML = "Start demo!";                
+              }
+              
+              button.addEventListener("click", start)
+            }()
+            
+            </script>
+            
+            <style>
+              .brightlight .slide-background.present{
+                background: #eee;
+              }
+              
+              .darklight .slide-background.present{
+                background: #666;
+              }
+            </style>
+            
+          </section>
+          
+          <section>
+            <h1>Shed some light on this</h1>
+            <pre><code data-trim>
+window.addEventListener("devicelight", function(event){
+  // event.value is the value in LUX
+});
+            </code></pre>
+          </section>
+          
+          <section>
+            <h1>Shed some light on this</h1>
+            <pre><code data-trim>
+window.addEventListener("devicelight", function(event){
+  var html = document.getElementsByTagName('html')[0];
+  if (event.value < 50) {
+    html.classList.add('darklight');
+    html.classList.remove('brightlight');
+  } else {
+    html.classList.add('brightlight');
+    html.classList.remove('darklight');
+  }
+});
+            </code></pre>
+          </section>          
+          
+          <section>
+            <h1>Currently in</h1>
+            
+            <ul>
+              <li>Firefox 22 (Mac, Firefox OS, Firefox for Android)</li>
+            </ul>
+            
+            <p><a href="https://dvcs.w3.org/hg/dap/raw-file/tip/light/Overview.html">https://dvcs.w3.org/hg/dap/raw-file/tip/light/Overview.html</a></p>
+          </section>
+                    
+        </section>
+
+        <section>
+          <section>
+            <h1>Vibration API</h1>
+          </section>
+          
+          
+          <section>
+            <h1>Easy as pie</h1>
+            <pre><code data-trim>
+// Vibrate for 100ms
+navigator.vibrate(100);
+
+// Vibrate in a pattern of:
+// - 100ms vibration, 
+// - 50ms pause, 
+// - 100ms vibration
+navigator.vibration([100,50,100]);
+            </code></pre>
+          </section>
+          
+          
+          <section>
+            <h1>Currently in</h1>
+            <ul>
+              <li>Firefox (Android)</li>
+              <li>Chrome 32+ (Android)</li>
+            </ul>
+            
+            <p><a href="http://www.w3.org/TR/vibration/">http://www.w3.org/TR/vibration/</a></p>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section data-background="images/backgrounds/webspeech.jpg">
+            <h1>Web speech API</h1>
+          </section>
+          
+          <section>
+            <button id="webspeech" class="big">
+              Click to talk!
+            </button>
+            
+            <script>
+              document.getElementById("webspeech").addEventListener("click", function(){
+                // Set up utterance
+                var utterance = new SpeechSynthesisUtterance('Hello SideView Attendees!');
+
+                utterance.volume = 1;
+                utterance.rate = 0.75;
+                utterance.pitch = 1;
+                utterance.lang = 'en-GB';
+
+                // Say it!
+                window.speechSynthesis.speak(utterance);                
+              })
+            </script>
+          </section>
+          
+          <section>
+            <h1>And the code</h1>
+            <pre><code data-trim>
+// Set up utterance
+var utterance = new SpeechSynthesisUtterance('Hello SideView Attendees!');
+
+utterance.volume = 1;
+utterance.rate = 0.75;
+utterance.pitch = 1;
+utterance.lang = 'en-GB';
+
+// Say it!
+window.speechSynthesis.speak(utterance);
+            </code></pre>            
+          </section>
+          
+          <section>
+            <h1>Speech recognition</h1>
+            <pre><code data-trim>
+var r = new window.webkitSpeechRecognition();
+r.continuous = true;
+r.lang = "en";
+r.interimResults = true;
+r.onresult = function(result){ /* result */ }
+r.start();
+// And sometime later on...
+r.stop();
+            </code></pre>              
+          </section>
+          
+          <section>
+            <h1>Currently in</h1>
+            <ul>
+              <li>Chrome 25+ <span class="note">(input only, needs connection)</span></li>
+              <li>Safari 6.1+ <span class="note">(desktop and on IOS7, speech synthesis only)</span></li>
+            </ul>
+            
+            <h1>Coming to</h1>
+            <ul>
+              <li>Firefox</li>
+              <li>Chrome 33+</li>
+            </ul>
+          </section>
+          
+        </section>        
+        
+        <section>
+          <section data-state="slide-i-lied" data-background="images/backgrounds/i_lied.png">
+            <h1>I lied</h1>
+          </section>
+          
+          <section>
+            <h1>getUserMedia() Screensharing</h1>
+          </section>
+          
+          <section>            
+            <video id="webrtc_video" class="stretch"></video>
+            <div>
+              <button id="webrtc_button">Start!</button>
+            </div>
+            
+            <script>
+            navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia;
+            var stream;
+            var button = document.getElementById("webrtc_button");
+            
+            var start = function(){
+              navigator.getUserMedia({
+                video: {
+                  mandatory: {
+                    chromeMediaSource: "screen"
+                  }
+                }
+              }, 
+              // Yay, got the stream!
+              function(s){
+                stream = s;
+                var v = document.getElementById("webrtc_video");
+                v.src = window.URL.createObjectURL(stream);
+                v.autoplay = true;
+                
+                button.removeEventListener("click", start);
+                button.addEventListener("click", stop);
+                button.innerHTML = "Stop!"
+              }, 
+              // Failed
+              function(e){
+                console.log(e);
+              })              
+            }
+            
+            var stop = function(){
+              stream.stop();
+              button.removeEventListener("click", stop);
+              button.addEventListener("click", start);
+              button.innerHTML = "Start!"              
+            }
+            
+            button.addEventListener("click", start)
+
+            </script>
+            
+          </section>
+          
+          <section>
+            <h1>...and the code</h1>
+            <pre><code data-trim>
+navigator.getUserMedia({
+    video: {
+      mandatory: {
+        chromeMediaSource: "screen"
+      }
+    }
+  },
+  // Yay, got stream!
+  function(stream){
+    var video = document.createElement('video');
+    video.src = window.URL.createObjectURL(stream);
+    video.autoplay = true;
+    document.body.appendChild(video);  
+  },
+  // Fail...
+  function(error){
+  }
+);
+            </code></pre>            
+          </section>
+          
+          <section>
+            <h1>Currently in</h1>
+            <ul>
+              <li>Chrome 26+</li>
+            </ul>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section data-background="images/backgrounds/service_workers.jpg">
+          </section>
+          
+          <section>
+            <blockquote>
+              ServiceWorkers allow us to persistently cache resources and handle the requests to these resources &mdash; even when the network isn't available
+            </blockquote>
+          </section>
+          
+          <section>
+            <h1 style="word-wrap: normal">ServiceWorkers parts:</h1>
+            <ul>
+              <li>A shared worker/controller that lives across page loads</li>
+              <li>A programmable HTTP cache</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h1>An example</h1>
+            
+            <h2>Registering the worker</h2>
+            <pre class="stretch"><code data-trim>
+navigator.registerServiceWorker("/*", "/assets/v1/ctrl.js").then(
+  function(serviceWorker) {
+    console.log("success!");
+    // To use the serviceWorker immediately, you 
+    // might call window.location.reload()
+  },
+  function(why) {
+    console.error("Installing the worker failed!:", why);
+  });
+            </code></pre>
+        </section>
+        <section>  
+          <h1>An example</h1>
+            
+            <h2>The worker</h2>
+            <pre  class="stretch"><code data-trim>
+// hosted at: /assets/v1/ctrl.js
+this.version = 1;
+
+var base = "http://videos.example.com";
+var inventory = new URL("/services/inventory/data.json", base);
+
+this.addEventListener("install", function(e) {
+  // Tell the system that this service worker can handle fetch events.
+  e.services = ["fetch"];
+});
+
+this.addEventListener("fetch", function(e) {
+  var url = e.request.url;
+  if (url.toString() == inventory.toString()) {
+    e.respondWith(new SameOriginResponse({
+      statusCode: 200,
+      body: JSON.stringify({
+        videos: { /* ... */ }
+      })
+    }));
+  }
+});
+            </code></pre>            
+            
+          </section>
+          
+          <section>
+            <h1>Currently in</h1>
+            <p>Nothing</p>
+            
+            <p><a href="https://github.com/slightlyoff/ServiceWorker/">https://github.com/slightlyoff/ServiceWorker/</a></p>
+          </section>
+          
+          <section>
+            <h1>But...</h1>
+            <img src="images/serviceworkers-firefox-intent.png" class="stretch">
+          </section>
+          
+        </section>        
+        
+        <section>
+          <h1>There is (much) more!</h1>
+          <ul>
+            <li>Midi API</li>
+            <li>Battery Status API</li>
+            <li>Web Crypto API</li>
+            <li>URL</li>
+          </ul>
+        </section>
+        
+        <section data-state="slide-thankyou" data-background="images/backgrounds/thank_you.png">
+          <h1>Thank you</h1>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="vendor/revealjs/lib/js/head.min.js"></script>
+    <script src="vendor/revealjs/js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'vendor/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'vendor/revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'vendor/revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'vendor/revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'vendor/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'vendor/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
