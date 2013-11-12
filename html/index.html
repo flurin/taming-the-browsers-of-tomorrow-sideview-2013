@@ -1,51 +1,50 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>Taming the browsers of tomorrow - SideView 2013</title>
+    <title>Taming the browsers of tomorrow - Side View 2013</title>
 
-		<meta name="description" content="">
-		<meta name="author" content="Flurin Egger">
+    <meta name="description" content="">
+    <meta name="author" content="Flurin Egger">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="vendor/revealjs/css/reveal.min.css">
-		<link rel="stylesheet" href="stylesheets/theme.css" id="theme">
+    <link rel="stylesheet" href="vendor/revealjs/css/reveal.min.css">
+    <link rel="stylesheet" href="stylesheets/theme.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="vendor/revealjs/lib/css/zenburn.css">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="vendor/revealjs/lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="vendor/revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="vendor/revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="vendor/revealjs/lib/js/html5shiv.js"></script>
-		<![endif]-->
+    <!--[if lt IE 9]>
+    <script src="vendor/revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
       
       <script src="vendor/smoothiecharts/smoothiecharts.js"></script>
-      
-	</head>
+  </head>
 
-	<body>
+  <body>
 
-		<div class="reveal">
+    <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
         <section data-background="images/backgrounds/title.png">
           <img src="images/elephant.png" class="seamless">
           <h1>Taming the browsers of tomorrow</h1>
           <p>Side View 2013, november 9th, 2013</p>
         </section>
         
-				<section data-background="images/backgrounds/flurin.jpg">
+        <section data-background="images/backgrounds/flurin.jpg">
           <h1>Hi, I am Flurin</h1>
           <p>@flurin</p>
         </section>
@@ -638,38 +637,38 @@ this.addEventListener("fetch", function(e) {
         <section data-state="slide-thankyou" data-background="images/backgrounds/thank_you.png">
           <h1>Thank you</h1>
         </section>
-			</div>
+      </div>
 
-		</div>
+    </div>
 
-		<script src="vendor/revealjs/lib/js/head.min.js"></script>
-		<script src="vendor/revealjs/js/reveal.min.js"></script>
+    <script src="vendor/revealjs/lib/js/head.min.js"></script>
+    <script src="vendor/revealjs/js/reveal.min.js"></script>
 
-		<script>
+    <script>
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'vendor/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'vendor/revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'vendor/revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'vendor/revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'vendor/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'vendor/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'vendor/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'vendor/revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'vendor/revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'vendor/revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'vendor/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'vendor/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
 
-		</script>
+    </script>
 
-	</body>
+  </body>
 </html>
